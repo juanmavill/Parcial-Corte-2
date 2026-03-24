@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Numeros de Catalan</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Calculadora de Numeros de Catalan</h1>
+
+<p>Ingrese un numero entero no negativo para calcular la secuencia de Catalan desde C0 hasta Cn</p>
+
+<form>
+    <label for="numero">Valor de n:</label>
+    <input type="number" id="numero" value="5" min="0">
+    <br><br>
+    <input type="button" value="Calcular" onclick="calcular()">
+</form>
+
+<br>
+<div id="resultado"></div>
+
+<script>
+    function calcular() {
+        var n = document.getElementById("numero").value;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            var respuesta = JSON.parse(this.responseText);
+            document.getElementById("resultado").innerHTML =
+                "<b>Operacion:</b> " + respuesta.operation + "<br>" +
+                "<b>n:</b> " + respuesta.input + "<br>" +
+                "<b>Secuencia:</b> " + respuesta.output;
+        }
+        xhttp.open("GET", "/proxy/catalan?value=" + n);
+        xhttp.send();
+    }
+</script>
+
+</body>
+</html>
